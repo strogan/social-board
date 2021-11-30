@@ -1,0 +1,10 @@
+
+
+
+
+
+
+
+Server side rendering urql for next.js ------- https://formidable.com/open-source/urql/docs/advanced/server-side-rendering/
+
+this 3 packages: next-urql react-is urql graphql
