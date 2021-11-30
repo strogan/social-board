@@ -13,6 +13,7 @@
     "outDir": "./dist",
     "removeComments": true,
     "sourceMap": true,
+    "emitDecoratorMetadata":true,
     "target": "es2017",
     "rootDirs": ["src/", "config/"],
     "typeRoots": ["./node_modules/@types", "./typings"],

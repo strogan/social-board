@@ -10,3 +10,5 @@ Server side rendering urql for next.js ------- https://formidable.com/open-sourc
 this 3 packages: next-urql react-is urql graphql
 
 Email sender for forgot password ---- nodemailer
+
+changed orm for typeorm ---- https://orkhan.gitbook.io/typeorm/docs/insert-query-builder

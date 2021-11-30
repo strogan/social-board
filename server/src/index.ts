@@ -1,15 +1,15 @@
-import { MikroORM } from "@mikro-orm/core";
+import "reflect-metadata";
 import { COOKIE_NAME, __prod__ } from "./constants";
 
-import microConfig from "./mikro-orm.config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
-import "reflect-metadata";
+
 import { UserResolver } from "./resolvers/user";
 import cors from "cors";
+import { createConnection } from "typeorm";
 /*Redis*/
 
 import session from "express-session";
@@ -17,14 +17,19 @@ import connectRedis from "connect-redis";
 
 import Redis from "ioredis";
 import { User } from "./entities/User";
+import { Post } from "./entities/Post";
 /*end*/
 
 const main = async () => {
-  const orm = await MikroORM.init(microConfig);
-
-  await orm.getMigrator().up(); // migration auto or code npx mikro-orm migration:create
-  // const post = orm.em.create(Post,{title:"fisrt psot"})
-  // await orm.em.persistAndFlush(post)
+  const conn = createConnection({
+    type: "postgres",
+    database: "socials",
+    username: "postgres",
+    password: "04121997myki",
+    logging: true,
+    synchronize: true,
+    entities: [Post, User],
+  });
 
   const app = express();
   //app.set("trust proxy", 1);
@@ -69,7 +74,7 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({ em: orm.em, req, res, redis }),
+    context: ({ req, res }) => ({ req, res, redis }),
   });
   await apolloServer.start();
   apolloServer.applyMiddleware({
