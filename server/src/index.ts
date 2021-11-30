@@ -16,10 +16,12 @@ import session from "express-session";
 import connectRedis from "connect-redis";
 
 import Redis from "ioredis";
+import { User } from "./entities/User";
 /*end*/
 
 const main = async () => {
   const orm = await MikroORM.init(microConfig);
+
   await orm.getMigrator().up(); // migration auto or code npx mikro-orm migration:create
   // const post = orm.em.create(Post,{title:"fisrt psot"})
   // await orm.em.persistAndFlush(post)
