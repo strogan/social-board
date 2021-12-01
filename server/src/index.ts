@@ -35,6 +35,8 @@ const main = async () => {
 
   await conn.runMigrations();
 
+  //await Post.delete({}); delete all posts
+
   const app = express();
   //app.set("trust proxy", 1);
 

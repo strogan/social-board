@@ -16,4 +16,5 @@ changed orm for typeorm ---- https://orkhan.gitbook.io/typeorm/docs/insert-query
 
 formidable error exchange to catch all errors - https://github.com/FormidableLabs/urql/issues/225
 
-pagination ---- https://orkhan.gitbook.io/typeorm/docs/select-query-builder
+pagination query ---- https://orkhan.gitbook.io/typeorm/docs/select-query-builder
+simple pagination frontend ---- https://github.com/FormidableLabs/urql/blob/main/exchanges/graphcache/src/extras/simplePagination.ts
