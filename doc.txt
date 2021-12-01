@@ -12,3 +12,6 @@ this 3 packages: next-urql react-is urql graphql
 Email sender for forgot password ---- nodemailer
 
 changed orm for typeorm ---- https://orkhan.gitbook.io/typeorm/docs/insert-query-builder
+
+
+formidable error exchange to catch all errors - https://github.com/FormidableLabs/urql/issues/225
