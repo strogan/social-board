@@ -18,18 +18,22 @@ import connectRedis from "connect-redis";
 import Redis from "ioredis";
 import { User } from "./entities/User";
 import { Post } from "./entities/Post";
+import path from "path";
 /*end*/
 
 const main = async () => {
-  const conn = createConnection({
+  const conn = await createConnection({
     type: "postgres",
     database: "socials",
     username: "postgres",
     password: "04121997myki",
     logging: true,
     synchronize: true,
+    migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User],
   });
+
+  await conn.runMigrations();
 
   const app = express();
   //app.set("trust proxy", 1);
