@@ -3,10 +3,10 @@ import { withUrqlClient } from "next-urql";
 import React, { useState } from "react";
 import { Layout } from "../components/Layout";
 import NextLink from 'next/link'
-import { usePostsQuery } from "../generated/graphql";
+import { useDeletePostMutation, usePostsQuery } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { Button, IconButton } from "@chakra-ui/button";
-import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { UpdootSection } from "../components/UpdootSection";
 
 const Index = () => {
@@ -15,38 +15,48 @@ const Index = () => {
         variables
     })
 
+    const [, deletePost] = useDeletePostMutation()
+
     if (!fetching && !data) {
         return (<div>you got query for some reason</div>)
     }
 
     return (
         <Layout>
-            <Flex align="center">
-                <Heading>Social App Posts</Heading>
-                <NextLink href="/create-post">
-                    <Link ml="auto">
-                        Create Post
-                    </Link>
-                </NextLink>
-            </Flex>
 
-            <br />
 
             {!data && fetching ? <div>loading...</div> :
 
                 <Stack spacing={8}>
 
                     {data.posts.posts.map((post) =>
+                        !post ? null : (
+                            <Flex key={post.id} p={5} shadow="md" borderWidth="1px">
+                                <UpdootSection post={post} />
+                                <Box flex={1}>
+                                    <NextLink href="/post/[id]" as={`/post/${post.id}`}>
+                                        <Link>
+                                            <Heading fontSize="xl">{post.title}{post.id}</Heading>
+                                        </Link>
+                                    </NextLink>
 
-                        <Flex key={post.id} p={5} shadow="md" borderWidth="1px">
-                            <UpdootSection post={post} />
-                            <Box>
-                                <Heading fontSize="xl">{post.title}{post.id}</Heading>
-                                <Text>created by {post.creator.username}</Text>
+                                    <Text>created by {post.creator.username}</Text>
 
-                                <Text mt={4}>{post.textSnippet}</Text>
-                            </Box>
-                        </Flex>
+
+                                    <Flex align="center">
+                                        <Text flex={1} mt={4}>{post.textSnippet}</Text>
+
+
+                                        <IconButton onClick={() => { deletePost({ id: post.id }) }}
+                                            colorScheme='blue'
+                                            aria-label="delete post"
+                                            icon={<DeleteIcon boxSize={7} />}
+                                        />
+
+                                    </Flex>
+
+                                </Box>
+                            </Flex>)
 
                     )}
 
