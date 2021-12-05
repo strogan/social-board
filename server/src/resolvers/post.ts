@@ -3,7 +3,6 @@ import {
   Ctx,
   Field,
   FieldResolver,
-  Info,
   InputType,
   Int,
   Mutation,

@@ -22,6 +22,7 @@ import path from "path";
 import { Updoot } from "./entities/Updoot";
 import { createUserLoader } from "./utils/createUserLoader";
 import { createUpdootLoader } from "./utils/createUpdootLoader";
+
 /*end*/
 
 const main = async () => {
@@ -29,7 +30,7 @@ const main = async () => {
     type: "postgres",
     database: "socials",
     username: "postgres",
-    password: "04121997myki",
+    password: "postgres",
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
